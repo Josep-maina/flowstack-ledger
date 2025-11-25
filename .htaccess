@@ -1,10 +1,1 @@
-# Hide .php extensions
-RewriteEngine On
 
-# Redirect requests without trailing slash
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([a-zA-Z0-9_-]+)$ $1.php [L]
-
-# Optional: Redirect www to non-www
-# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-# RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
