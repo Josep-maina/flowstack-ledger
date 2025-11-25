@@ -1,12 +1,20 @@
 <?php
-// Database configuration
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', 'DKgodKJMHxbBmtLOEkCYsMctWfzSiqsK');
-define('DB_NAME', 'flowstack_ledger');
+// Parse DATABASE_URL from Railway
+$url = getenv('DATABASE_URL'); // Railway sets this
+if (!$url) {
+    die("DATABASE_URL not set in environment variables.");
+}
+
+$dbparts = parse_url($url);
+
+$host = $dbparts['host'];
+$dbname = ltrim($dbparts['path'], '/');
+$username = $dbparts['user'];
+$password = $dbparts['pass'];
+$port = $dbparts['port'] ?? 3306;
 
 // Create connection
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn = new mysqli($host, $username, $password, $dbname, $port);
 
 // Check connection
 if ($conn->connect_error) {
